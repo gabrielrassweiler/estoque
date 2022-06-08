@@ -6,8 +6,8 @@ const user = ref(null)
 export default function useAuthUser () {
   const { supabase } = useSupabase()
 
-  const login = async ({ email, senha }) => {
-    const { user, error } = await supabase.auth.signIn({ email, senha })
+  const login = async ({ email, password }) => {
+    const { user, error } = await supabase.auth.signIn({ email, password })
     if (error) throw error
 
     return user
@@ -30,9 +30,9 @@ export default function useAuthUser () {
     return !!user.value
   }
 
-  const novoUsuario = async ({ email, senha }) => {
-    const { user, error } = await supabase.auth.signUp({ email, senha }, {
-      redirectTo: `${window.location.origin}/me?fromEmail=registrationConfirmation`
+  const registrar = async ({ email, password, ...data }) => {
+    const { user, error } = await supabase.auth.signUp({ email, password }, {
+      data, redirectTo: `${window.location.origin}/me?fromEmail=registrationConfirmation`
     })
     if (error) throw error
 
@@ -59,7 +59,7 @@ export default function useAuthUser () {
     loginWithSocialProvider,
     logout,
     verificaLogado,
-    novoUsuario,
+    registrar,
     atualizar,
     resetaSenha
   }
