@@ -96,7 +96,8 @@ export default defineComponent({
         title: 'Logout',
         message: 'Deseja realmente sair ?',
         cancel: true,
-        persistent: true
+        persistent: true,
+        color: 'primary'
       }).onOk(async () => {
         await logout()
         // O replace irá tirar o historico de navegação, logo nao tera mais como voltar

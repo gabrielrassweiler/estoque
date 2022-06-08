@@ -38,6 +38,7 @@
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -50,6 +51,7 @@ export default defineComponent({
     })
     const router = useRouter()
     const { registrar } = useAuthUser()
+    const $q = useQuasar()
 
     const handleRegistrar = async () => {
       try {
@@ -58,8 +60,12 @@ export default defineComponent({
           name: 'ConfirmacaoEmail',
           query: { email: form.value.email }
         })
-      } catch (e) {
-        alert(e.message)
+      } catch (error) {
+        $q.dialog({
+          title: 'Erro',
+          message: error.message,
+          color: 'primary'
+        })
       }
     }
 

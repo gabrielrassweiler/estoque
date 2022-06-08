@@ -42,6 +42,7 @@
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -53,13 +54,18 @@ export default defineComponent({
     })
     const router = useRouter()
     const { login } = useAuthUser()
+    const $q = useQuasar()
 
     const handleLogin = async () => {
       try {
         await login(form.value)
         await router.push({ name: 'me' })
-      } catch (e) {
-        alert(e.message)
+      } catch (error) {
+        $q.dialog({
+          title: 'Erro',
+          message: error.message.toLowerCase() === 'invalid login credentials' ? 'Senha incorreta!' : error.message,
+          color: 'primary'
+        })
       }
     }
 
