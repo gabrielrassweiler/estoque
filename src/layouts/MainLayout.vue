@@ -20,7 +20,7 @@
             checked-icon="nightlight_round"
             color="white"
             icon-color="grey"
-            @click="$q.dark.toggle()"
+            @click="handleMode"
           />
         </div>
         <q-btn-dropdown flat color="white" icon="person">
@@ -41,11 +41,7 @@
       bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label class="text-center" header>Menu</q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"
@@ -85,11 +81,15 @@ export default defineComponent({
   },
 
   setup () {
-    const dark = ref(false)
+    const $q = useQuasar()
+    const dark = ref(localStorage.getItem('darkMode') === 'true' ?? 'false')
+    if (localStorage.getItem('darkMode') === 'true') {
+      $q.dark.set(true)
+    }
+
     const leftDrawerOpen = ref(false)
     const { logout } = useAuthUser()
     const router = useRouter()
-    const $q = useQuasar()
 
     const handleLogout = async () => {
       $q.dialog({
@@ -99,8 +99,19 @@ export default defineComponent({
         persistent: true
       }).onOk(async () => {
         await logout()
+        // O replace irá tirar o historico de navegação, logo nao tera mais como voltar
         await router.replace({ name: 'login' })
       })
+    }
+
+    const handleMode = () => {
+      if (!dark.value) {
+        localStorage.setItem('darkMode', 'false')
+        $q.dark.set(false)
+      } else {
+        localStorage.setItem('darkMode', 'true')
+        $q.dark.set(true)
+      }
     }
 
     return {
@@ -110,7 +121,8 @@ export default defineComponent({
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
-      handleLogout
+      handleLogout,
+      handleMode
     }
   }
 })

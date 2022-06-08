@@ -8,13 +8,17 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useQuasar } from 'quasar'
 
 export default defineComponent({
   name: 'LoginLayout',
   setup () {
-    return {
-
+    const $q = useQuasar()
+    if (localStorage.getItem('darkMode') === 'true') {
+      $q.dark.set(true)
     }
+
+    return {}
   }
 })
 </script>
