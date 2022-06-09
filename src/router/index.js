@@ -31,6 +31,13 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach(async (to) => {
     const { verificaLogado } = useAuthUser()
 
+    if (to.hash.includes('type=recovery') && to.name !== 'NovaSenha') {
+      const accessToken = to.hash.split('&')[0]
+      const token = accessToken.replace('#access_token=', '')
+
+      return { name: 'NovaSenha', query: { token } }
+    }
+
     if (!await verificaLogado() && to.meta.requiresAuth && !Object.keys(to.query).includes('fromEmail')) {
       return { name: 'login' }
     }

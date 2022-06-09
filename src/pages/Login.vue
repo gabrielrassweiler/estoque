@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form class="row justify-center form" style="top: 20vh;" @submit.prevent="handleLogin">
+    <q-form class="row justify-center" style="top: 20vh;" @submit.prevent="handleLogin">
       <p class="col-12 text-h5 text-center">Login</p>
 
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-lg">
@@ -28,10 +28,18 @@
         <q-btn
           label="Registrar-se"
           color="primary"
-          class="full-width"
+          class="full-width q-gutter-y-sm"
           flat
           rounded
           to="/registrar"
+        />
+        <q-btn
+          label="Esqueceu a senha ?"
+          color="primary"
+          class="full-width"
+          flat
+          rounded
+          to="/esqueceu-senha"
         />
       </div>
     </q-form>

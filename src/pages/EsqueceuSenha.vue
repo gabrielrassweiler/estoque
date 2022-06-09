@@ -1,27 +1,20 @@
 <template>
   <q-page padding>
-    <q-form class="row justify-center" style="top: 20vh;" @submit.prevent="handleRegistrar">
-      <p class="col-12 text-h5 text-center">Registrar-se</p>
+    <q-form class="row justify-center" style="top: 20vh;" @submit.prevent="handleEsqueceuSenha">
+      <p class="col-12 text-h5 text-center">Resetar senha</p>
 
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-lg">
         <q-input
-          label="Nome"
-          v-model="form.name"
-        />
-        <q-input
           label="Email"
-          v-model="form.email"
+          v-model="email"
           type="email"
-        />
-        <q-input
-          label="Senha"
-          v-model="form.password"
-          type="password"
-        />
+        >
+          <q-tooltip>O link para cadastrar nova senha será enviado para o email informado</q-tooltip>
+        </q-input>
 
         <div class="full-width q-pt-md">
           <q-btn
-            label="Registrar"
+            label="Enviar"
             color="primary"
             class="full-width"
             outline
@@ -45,28 +38,22 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
-import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Registrar',
+  name: 'EsqueceuSenha',
   setup () {
-    const form = ref({
-      name: '',
-      email: '',
-      password: ''
-    })
-    const router = useRouter()
-    const { registrar } = useAuthUser()
+    const { resetaSenha } = useAuthUser()
+    const email = ref('')
     const $q = useQuasar()
 
-    const handleRegistrar = async () => {
+    const handleEsqueceuSenha = async () => {
       try {
-        await registrar(form.value)
-        await router.push({
-          name: 'ConfirmacaoEmail',
-          query: { email: form.value.email }
+        await resetaSenha(email.value)
+        $q.dialog({
+          title: 'Enviado',
+          message: 'Link para resetar a senha enviado para o email: ' + email.value,
+          color: 'primary'
         })
       } catch (error) {
         $q.dialog({
@@ -78,8 +65,8 @@ export default defineComponent({
     }
 
     return {
-      form,
-      handleRegistrar
+      email,
+      handleEsqueceuSenha
     }
   }
 })

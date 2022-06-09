@@ -53,6 +53,13 @@ export default function useAuthUser () {
     return user
   }
 
+  const updateSenha = async (accessToken, novaSenha) => {
+    const { user, error } = await supabase.auth.api.updateUser(accessToken, { password: novaSenha })
+    if (error) throw error
+
+    return user
+  }
+
   return {
     user,
     login,
@@ -61,6 +68,7 @@ export default function useAuthUser () {
     verificaLogado,
     registrar,
     atualizar,
-    resetaSenha
+    resetaSenha,
+    updateSenha
   }
 }

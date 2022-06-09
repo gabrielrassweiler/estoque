@@ -8,7 +8,9 @@ const routes = [
       { path: '', name: 'loginDefault', component: () => import('pages/Login.vue') },
       { path: 'login', name: 'login', component: () => import('pages/Login.vue') },
       { path: 'registrar', name: 'registrar', component: () => import('pages/Registrar.vue') },
-      { path: 'confirmacao-email', name: 'ConfirmacaoEmail', component: () => import('pages/ConfirmacaoEmail.vue') }
+      { path: 'confirmacao-email', name: 'ConfirmacaoEmail', component: () => import('pages/ConfirmacaoEmail.vue') },
+      { path: 'esqueceu-senha', name: 'EsqueceuSenha', component: () => import('pages/EsqueceuSenha.vue') },
+      { path: 'nova-senha', name: 'NovaSenha', component: () => import('pages/NovaSenha.vue') }
     ]
   },
   // Rotas que necessitam de autenticação
