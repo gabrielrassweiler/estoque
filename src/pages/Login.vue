@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import useAuthUser from 'src/composables/UseAuthUser'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
@@ -61,8 +61,14 @@ export default defineComponent({
       password: ''
     })
     const router = useRouter()
-    const { login } = useAuthUser()
+    const { login, verificaLogado } = useAuthUser()
     const $q = useQuasar()
+
+    onMounted(() => {
+      if (verificaLogado()) {
+        router.replace({ name: 'me' })
+      }
+    })
 
     const handleLogin = async () => {
       try {
