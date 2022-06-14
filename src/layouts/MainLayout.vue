@@ -66,10 +66,16 @@ import { useQuasar } from 'quasar'
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Home',
+    caption: '',
+    icon: 'home',
+    routeName: 'me'
+  },
+  {
+    title: 'Categoria',
+    caption: '',
+    icon: 'category',
+    routeName: 'categoria'
   }
 ]
 
