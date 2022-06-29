@@ -14,6 +14,7 @@
           <span class="text-h6">Categoria</span>
           <q-space />
           <q-btn
+            v-if="$q.platform.is.desktop"
             icon="add"
             label="Novo"
             color="primary"
@@ -46,6 +47,17 @@
         </template>
       </q-table>
     </div>
+
+    <!-- Botão apresentado na versão mobile apenas -->
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn
+        v-if="$q.platform.is.mobile"
+        fab
+        icon="add"
+        color="primary"
+        :to="{ name: 'form-categoria' }"
+      />
+    </q-page-sticky>
   </q-page>
 </template>
 
