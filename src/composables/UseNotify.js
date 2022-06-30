@@ -6,7 +6,7 @@ export default function useNotify () {
   const notifySuccess = (message) => {
     $q.notify({
       type: 'positive',
-      message: message || 'Tudo certo!'
+      message: message || 'Salvo com sucesso!'
     })
   }
 

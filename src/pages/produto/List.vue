@@ -2,16 +2,16 @@
   <q-page padding>
     <div class="row">
       <q-table
-        title="Categoria"
-        :rows="categorias"
-        :columns="columnsCategoria"
+        title="Produtos"
+        :rows="produtos"
+        :columns="columnsProduto"
         row-key="name"
         class="col-12"
         :loading="carregando"
         loading-label="Carregando..."
       >
         <template v-slot:top>
-          <span class="text-h6">Categoria</span>
+          <span class="text-h6">Produtos</span>
           <q-space />
           <q-btn
             v-if="$q.platform.is.desktop"
@@ -19,8 +19,17 @@
             label="Novo"
             color="primary"
             dense
-            :to="{ name: 'form-categoria' }"
+            :to="{ name: 'form-produto' }"
           />
+        </template>
+
+        <template v-slot:body-cell-img_url="props">
+          <q-td :props="props">
+            <q-avatar v-if="props.row.img_url">
+              <img :src="props.row.img_url" :alt="props.row.nome" />
+            </q-avatar>
+            <q-avatar v-else color="grey" text-color="white" icon="hide_image" />
+          </q-td>
         </template>
 
         <template v-slot:body-cell-acoes="props">
@@ -55,7 +64,7 @@
         fab
         icon="add"
         color="primary"
-        :to="{ name: 'form-categoria' }"
+        :to="{ name: 'form-produto' }"
       />
     </q-page-sticky>
   </q-page>
@@ -63,27 +72,27 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import { columnsCategoria } from 'pages/categoria/table'
+import { useQuasar } from 'quasar'
+import { columnsProduto } from 'pages/produto/table'
 import { defineComponent, onMounted, ref } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
-import { useQuasar } from 'quasar'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'categoria',
+  name: 'produto',
   setup () {
-    const categorias = ref([])
+    const produtos = ref([])
     const carregando = ref(true)
     const { list, remove } = useApi()
     const { notifyError, notifySuccess } = useNotify()
     const router = useRouter()
     const $q = useQuasar()
 
-    const handleListCategories = async () => {
+    const handleListProducts = async () => {
       try {
         carregando.value = true
-        categorias.value = await list('categoria')
+        produtos.value = await list('produto')
         carregando.value = false
       } catch (error) {
         notifyError(error.message)
@@ -97,26 +106,26 @@ export default defineComponent({
         color: 'primary'
       }).onOk(async () => {
         try {
-          await remove('categoria', props.id)
+          await remove('produto', props.id)
           notifySuccess('Registro deletado com sucesso!')
-          await handleListCategories()
+          await handleListProducts()
         } catch (error) {
           notifyError(error.message)
         }
       })
     }
 
-    const handleEdit = (categoria) => {
-      router.push({ name: 'form-categoria', params: { id: categoria.id } })
+    const handleEdit = (produto) => {
+      router.push({ name: 'form-produto', params: { id: produto.id } })
     }
 
     onMounted(() => {
-      handleListCategories()
+      handleListProducts()
     })
 
     return {
-      categorias,
-      columnsCategoria,
+      produtos,
+      columnsProduto,
       carregando,
       handleEdit,
       handleRemove

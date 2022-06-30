@@ -76,16 +76,20 @@ const linksList = [
     caption: '',
     icon: 'category',
     routeName: 'categoria'
+  },
+  {
+    title: 'Produto',
+    caption: '',
+    icon: 'inventory',
+    routeName: 'produto'
   }
 ]
 
 export default defineComponent({
   name: 'MainLayout',
-
   components: {
     EssentialLink
   },
-
   setup () {
     const $q = useQuasar()
     const dark = ref(localStorage.getItem('darkMode') === 'true' ?? 'false')

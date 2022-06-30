@@ -20,7 +20,9 @@ const routes = [
     children: [
       { path: 'me', name: 'me', component: () => import('pages/IndexPage.vue') },
       { path: 'categoria', name: 'categoria', component: () => import('pages/categoria/List.vue') },
-      { path: 'form-categoria/:id?', name: 'form-categoria', component: () => import('pages/categoria/Form.vue') }
+      { path: 'form-categoria/:id?', name: 'form-categoria', component: () => import('pages/categoria/Form.vue') },
+      { path: 'produto', name: 'produto', component: () => import('pages/produto/List.vue') },
+      { path: 'form-produto/:id?', name: 'form-produto', component: () => import('pages/produto/Form.vue') }
     ],
     meta: {
       requiresAuth: true

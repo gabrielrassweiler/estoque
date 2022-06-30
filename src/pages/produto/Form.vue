@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="row justify-center">
       <div class="col-12 text-center">
-        <p>Formulário de Categoria</p>
+        <p>Formulário de Produto</p>
       </div>
 
       <q-form class="col-md-7 col-xs-12 col-sm-12 q-gutter-y-md" @submit.prevent="handleSubmit">
@@ -10,6 +10,33 @@
           label="Nome"
           v-model="form.name"
           :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
+        />
+
+        <q-editor v-model="form.descricao" min-height="5rem" />
+
+        <q-input
+          label="Quantidade"
+          v-model="form.quantidade"
+          type="number"
+          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
+        />
+
+        <q-input
+          label="Preço"
+          v-model="form.preco"
+          type="number"
+          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
+          prefix="R$"
+        />
+
+        <q-select
+          v-model="form.categoria_id"
+          :options="opcoesCategoria"
+          label="Categoria"
+          option-value="id"
+          option-label="name"
+          map-options
+          emit-value
         />
 
         <q-btn
@@ -26,7 +53,7 @@
           class="full-width"
           rounded
           flat
-          :to="{ name: 'categoria' }"
+          :to="{ name: 'produto' }"
         />
 
       </q-form>
@@ -42,50 +69,61 @@ import useNotify from 'src/composables/UseNotify'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'form-categoria',
+  name: 'form-produto',
   setup () {
     const form = ref({
-      name: ''
+      name: '',
+      descricao: '',
+      quantidade: 0,
+      preco: 0,
+      categoria_id: ''
     })
     const router = useRouter()
     const route = useRoute()
-    const { post, getById, update } = useApi()
+    const { post, getById, update, list } = useApi()
     const { notifyError, notifySuccess } = useNotify()
     const atualizar = computed(() => route.params.id)
+    const opcoesCategoria = ref([])
 
     const handleSubmit = async () => {
       try {
         if (atualizar.value) {
-          await update('categoria', form.value)
+          await update('produto', form.value)
         } else {
-          await post('categoria', form.value)
+          await post('produto', form.value)
         }
 
         notifySuccess('Salvo com sucesso!')
-        await router.push({ name: 'categoria' })
+        await router.push({ name: 'produto' })
       } catch (e) {
         notifyError(e.message)
       }
     }
 
-    const handleCategoria = async () => {
+    const handleProduto = async () => {
       try {
-        form.value = await getById('categoria', atualizar.value)
+        form.value = await getById('produto', atualizar.value)
       } catch (e) {
         notifyError(e.message)
       }
+    }
+
+    const handleListCategorias = async () => {
+      opcoesCategoria.value = await list('categoria')
     }
 
     onMounted(() => {
+      handleListCategorias()
       if (atualizar.value) {
-        handleCategoria()
+        handleProduto()
       }
     })
 
     return {
       form,
       handleSubmit,
-      atualizar
+      atualizar,
+      opcoesCategoria
     }
   }
 })
