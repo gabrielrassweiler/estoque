@@ -18,15 +18,15 @@
           label="Quantidade"
           v-model="form.quantidade"
           type="number"
-          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
+          :rules="[val => !!val || 'Campo obrigatório!']"
         />
 
         <q-input
           label="Preço"
           v-model="form.preco"
-          type="number"
-          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
+          type="float"
           prefix="R$"
+          :rules="[val => !!val || 'Campo obrigatório!']"
         />
 
         <q-select
@@ -37,6 +37,7 @@
           option-label="name"
           map-options
           emit-value
+          :rules="[val => !!val || 'Campo obrigatório!']"
         />
 
         <q-btn
