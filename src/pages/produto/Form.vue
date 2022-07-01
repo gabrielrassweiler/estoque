@@ -12,6 +12,14 @@
           :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
         />
 
+        <q-input
+          label="Imagem"
+          stack-label
+          type="file"
+          v-model="imagem"
+          accept="image/*"
+        />
+
         <q-editor v-model="form.descricao" min-height="5rem" />
 
         <q-input
@@ -77,17 +85,23 @@ export default defineComponent({
       descricao: '',
       quantidade: 0,
       preco: 0,
-      categoria_id: ''
+      categoria_id: '',
+      img_url: ''
     })
+    const opcoesCategoria = ref([])
+    const imagem = ref([])
     const router = useRouter()
     const route = useRoute()
-    const { post, getById, update, list } = useApi()
+    const { post, getById, update, list, uploadImg } = useApi()
     const { notifyError, notifySuccess } = useNotify()
     const atualizar = computed(() => route.params.id)
-    const opcoesCategoria = ref([])
 
     const handleSubmit = async () => {
       try {
+        if (imagem.value.length) {
+          form.value.img_url = await uploadImg(imagem.value[0], 'produtos')
+        }
+
         if (atualizar.value) {
           await update('produto', form.value)
         } else {
@@ -124,7 +138,8 @@ export default defineComponent({
       form,
       handleSubmit,
       atualizar,
-      opcoesCategoria
+      opcoesCategoria,
+      imagem
     }
   }
 })

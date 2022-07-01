@@ -1,6 +1,6 @@
 # Estoque Quasar app (estoque)
 
-A Quasar Project
+Projeto realizado com Quasar framework(Vue.js) e supabase para parte de autenticação, storage, etc.
 
 ## Install the dependencies
 ```bash
