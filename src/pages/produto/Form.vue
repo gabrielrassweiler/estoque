@@ -75,6 +75,7 @@ import { defineComponent, ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
+import useAuthUser from 'src/composables/UseAuthUser'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -94,6 +95,7 @@ export default defineComponent({
     const route = useRoute()
     const { post, getById, update, list, uploadImg } = useApi()
     const { notifyError, notifySuccess } = useNotify()
+    const { user } = useAuthUser()
     const atualizar = computed(() => route.params.id)
 
     const handleSubmit = async () => {
@@ -124,7 +126,7 @@ export default defineComponent({
     }
 
     const handleListCategorias = async () => {
-      opcoesCategoria.value = await list('categoria')
+      opcoesCategoria.value = await list('categoria', user.value.id)
     }
 
     onMounted(() => {

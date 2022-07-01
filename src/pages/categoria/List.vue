@@ -68,6 +68,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
 import { useQuasar } from 'quasar'
+import useAuthUser from 'src/composables/UseAuthUser'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -79,11 +80,12 @@ export default defineComponent({
     const { notifyError, notifySuccess } = useNotify()
     const router = useRouter()
     const $q = useQuasar()
+    const { user } = useAuthUser()
 
     const handleListCategories = async () => {
       try {
         carregando.value = true
-        categorias.value = await list('categoria')
+        categorias.value = await list('categoria', user.value.id)
         carregando.value = false
       } catch (error) {
         notifyError(error.message)

@@ -77,6 +77,7 @@ import { columnsProduto } from 'pages/produto/table'
 import { defineComponent, onMounted, ref } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
+import useAuthUser from 'src/composables/UseAuthUser'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -88,11 +89,12 @@ export default defineComponent({
     const { notifyError, notifySuccess } = useNotify()
     const router = useRouter()
     const $q = useQuasar()
+    const { user } = useAuthUser()
 
     const handleListProducts = async () => {
       try {
         carregando.value = true
-        produtos.value = await list('produto')
+        produtos.value = await list('produto', user.value.id)
         carregando.value = false
       } catch (error) {
         notifyError(error.message)

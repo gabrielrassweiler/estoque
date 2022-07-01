@@ -6,10 +6,19 @@ export default function useApi () {
   const { supabase } = useSupabase()
   const { user } = useAuthUser()
 
-  const list = async (table) => {
+  const listPublic = async (table) => {
     const { data, error } = await supabase
       .from(table)
       .select('*')
+    if (error) throw error
+    return data
+  }
+
+  const list = async (table, userId) => {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .eq('user_id', userId)
     if (error) throw error
     return data
   }
@@ -85,6 +94,7 @@ export default function useApi () {
     update,
     remove,
     uploadImg,
-    getUrlPublic
+    getUrlPublic,
+    listPublic
   }
 }
