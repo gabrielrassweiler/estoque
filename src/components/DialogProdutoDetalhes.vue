@@ -46,6 +46,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { formatMoney } from 'src/utils/format'
+import { openURL } from 'quasar'
 
 export default defineComponent({
   name: 'DialogProdutoDetalhes',
@@ -59,12 +60,15 @@ export default defineComponent({
     }
   },
   setup (props, { emit }) {
+    const phone = '47988261867'
+    const msg = 'Olá, fiquei interessado no produto: '
+
     const handleFechar = () => {
       emit('fecharDialog')
     }
 
     const handleEnviarWhatsapp = () => {
-      alert('teste')
+      openURL(encodeURI(`https://api.whatsapp.com/send?phone=55${phone}&text=${msg} - ${props.produto.name} - ${formatMoney(props.produto.preco)}`))
     }
 
     return {
