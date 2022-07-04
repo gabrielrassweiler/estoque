@@ -13,6 +13,14 @@ const routes = [
       { path: 'nova-senha', name: 'NovaSenha', component: () => import('pages/NovaSenha.vue') }
     ]
   },
+  // Rotas de produto publico
+  {
+    path: '/',
+    component: () => import('layouts/PublicLayout.vue'),
+    children: [
+      { path: 'produto-publico/:id', name: 'produto-publico', component: () => import('pages/produto/ListPublic.vue') }
+    ]
+  },
   // Rotas que necessitam de autenticação
   {
     path: '/',

@@ -12,6 +12,17 @@
       >
         <template v-slot:top>
           <span class="text-h6">Produtos</span>
+
+          <q-btn
+            label="Minha loja"
+            class="q-ml-sm"
+            color="primary"
+            icon="store"
+            size="sm"
+            outline
+            @click="handleMinhaLoja"
+          />
+
           <q-space />
           <q-btn
             v-if="$q.platform.is.desktop"
@@ -121,6 +132,10 @@ export default defineComponent({
       router.push({ name: 'form-produto', params: { id: produto.id } })
     }
 
+    const handleMinhaLoja = () => {
+      router.push({ name: 'produto-publico', params: { id: user.value.id } })
+    }
+
     onMounted(() => {
       handleListProducts()
     })
@@ -130,7 +145,8 @@ export default defineComponent({
       columnsProduto,
       carregando,
       handleEdit,
-      handleRemove
+      handleRemove,
+      handleMinhaLoja
     }
   }
 })
