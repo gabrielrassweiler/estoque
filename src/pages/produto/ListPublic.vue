@@ -30,7 +30,11 @@
 
         <template v-slot:item="props">
           <div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-            <q-card>
+            <q-card
+              class="cursor-pointer"
+              v-ripple:primary
+              @click="handleMostrarDetalhes(props.row)"
+            >
               <q-card-section class="text-center">
                 <q-img :src="props.row.img_url" :ratio="4/3" />
 
@@ -43,6 +47,12 @@
 
       </q-table>
     </div>
+
+    <dialog-produto-detalhes
+      :mostrarDetalhes="mostrarModal"
+      :produto="detalhesProduto"
+      @fecharDialog=false
+    />
   </q-page>
 </template>
 
@@ -53,17 +63,28 @@ import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
 import { useRoute } from 'vue-router'
 import { formatMoney } from 'src/utils/format'
+import DialogProdutoDetalhes from 'components/DialogProdutoDetalhes.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'produtoPublico',
+  components: {
+    DialogProdutoDetalhes
+  },
   setup () {
     const produtos = ref([])
     const filter = ref('')
     const carregando = ref(true)
+    const mostrarModal = ref(false)
+    const detalhesProduto = ref({})
     const { list } = useApi()
     const { notifyError } = useNotify()
     const route = useRoute()
+
+    const handleMostrarDetalhes = (produto) => {
+      detalhesProduto.value = produto
+      mostrarModal.value = true
+    }
 
     const handleListProducts = async (userId) => {
       try {
@@ -86,7 +107,10 @@ export default defineComponent({
       columnsProduto,
       carregando,
       formatMoney,
-      filter
+      filter,
+      mostrarModal,
+      detalhesProduto,
+      handleMostrarDetalhes
     }
   }
 })
