@@ -31,7 +31,9 @@
             size="sm"
             outline
             @click="handleCopiarLinkPublico"
-          />
+          >
+            <q-tooltip>Link público para a sua loja</q-tooltip>
+          </q-btn>
 
           <q-space />
           <q-btn
