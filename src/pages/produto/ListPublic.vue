@@ -1,6 +1,21 @@
 <template>
   <q-page padding>
     <div class="row">
+      <q-select
+        v-model="categoriaId"
+        label="Categoria"
+        class="col-12"
+        :options="opcoesCategoria"
+        option-label="name"
+        option-value="id"
+        map-options
+        emit-value
+        clearable
+        outlined
+        dense
+        @update:model-value="handleListProducts(route.params.id)"
+      />
+
       <q-table
         grid
         :rows="produtos"
@@ -77,6 +92,8 @@ export default defineComponent({
     const carregando = ref(true)
     const mostrarModal = ref(false)
     const detalhesProduto = ref({})
+    const opcoesCategoria = ref([])
+    const categoriaId = ref('')
     const { list } = useApi()
     const { notifyError } = useNotify()
     const route = useRoute()
@@ -89,8 +106,18 @@ export default defineComponent({
     const handleListProducts = async (userId) => {
       try {
         carregando.value = true
-        produtos.value = await list('produto', userId)
+        produtos.value = categoriaId.value
+          ? await list('produto', userId, 'categoria_id', categoriaId.value)
+          : await list('produto', userId)
         carregando.value = false
+      } catch (error) {
+        notifyError(error.message)
+      }
+    }
+
+    const handleListCategorias = async (userId) => {
+      try {
+        opcoesCategoria.value = await list('categoria', userId)
       } catch (error) {
         notifyError(error.message)
       }
@@ -99,6 +126,7 @@ export default defineComponent({
     onMounted(() => {
       if (route.params.id) {
         handleListProducts(route.params.id)
+        handleListCategorias(route.params.id)
       }
     })
 
@@ -110,7 +138,12 @@ export default defineComponent({
       filter,
       mostrarModal,
       detalhesProduto,
-      handleMostrarDetalhes
+      handleMostrarDetalhes,
+      handleListCategorias,
+      handleListProducts,
+      opcoesCategoria,
+      categoriaId,
+      route
     }
   }
 })
