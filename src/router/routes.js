@@ -30,7 +30,8 @@ const routes = [
       { path: 'categoria', name: 'categoria', component: () => import('pages/categoria/List.vue') },
       { path: 'form-categoria/:id?', name: 'form-categoria', component: () => import('pages/categoria/Form.vue') },
       { path: 'produto', name: 'produto', component: () => import('pages/produto/List.vue') },
-      { path: 'form-produto/:id?', name: 'form-produto', component: () => import('pages/produto/Form.vue') }
+      { path: 'form-produto/:id?', name: 'form-produto', component: () => import('pages/produto/Form.vue') },
+      { path: 'form-config/:id?', name: 'form-config', component: () => import('pages/configuracao/Form.vue') }
     ],
     meta: {
       requiresAuth: true

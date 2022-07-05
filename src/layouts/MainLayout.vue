@@ -82,6 +82,12 @@ const linksList = [
     caption: '',
     icon: 'inventory',
     routeName: 'produto'
+  },
+  {
+    title: 'Configuração',
+    caption: '',
+    icon: 'settings',
+    routeName: 'form-config'
   }
 ]
 
