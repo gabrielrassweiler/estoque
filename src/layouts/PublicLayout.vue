@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
 
-        <q-toolbar-title>Estoque</q-toolbar-title>
+        <q-toolbar-title>{{ config.nome ? config.nome : 'Estoque' }}</q-toolbar-title>
 
         <div>
           <q-toggle
@@ -32,7 +32,7 @@ import useApi from 'src/composables/UseApi'
 export default defineComponent({
   name: 'PublicLayout',
   setup () {
-    const { getConfig } = useApi()
+    const { getConfig, config } = useApi()
     const $q = useQuasar()
     const dark = ref(localStorage.getItem('darkMode') === 'true' ?? 'false')
     if (localStorage.getItem('darkMode') === 'true') {
@@ -55,7 +55,8 @@ export default defineComponent({
 
     return {
       dark,
-      handleMode
+      handleMode,
+      config
     }
   }
 })
