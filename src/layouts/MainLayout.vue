@@ -121,9 +121,11 @@ export default defineComponent({
         persistent: true,
         color: 'primary'
       }).onOk(async () => {
+        $q.loading.show()
         await logout()
         // O replace irá tirar o historico de navegação, logo nao tera mais como voltar
         await router.replace({ name: 'login' })
+        $q.loading.hide()
       })
     }
 
