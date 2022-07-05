@@ -23,6 +23,16 @@
             @click="handleMinhaLoja"
           />
 
+          <q-btn
+            label="Copiar link"
+            class="q-ml-sm"
+            color="primary"
+            icon="content_copy"
+            size="sm"
+            outline
+            @click="handleCopiarLinkPublico"
+          />
+
           <q-space />
           <q-btn
             v-if="$q.platform.is.desktop"
@@ -83,7 +93,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import { useQuasar } from 'quasar'
+import { useQuasar, openURL, copyToClipboard } from 'quasar'
 import { columnsProduto } from 'pages/produto/table'
 import { defineComponent, onMounted, ref } from 'vue'
 import useApi from 'src/composables/UseApi'
@@ -133,7 +143,21 @@ export default defineComponent({
     }
 
     const handleMinhaLoja = () => {
-      router.push({ name: 'produto-publico', params: { id: user.value.id } })
+      const link = router.resolve({ name: 'produto-publico', params: { id: user.value.id } })
+      openURL(window.origin + link.href)
+    }
+
+    const handleCopiarLinkPublico = () => {
+      const link = router.resolve({ name: 'produto-publico', params: { id: user.value.id } })
+      const linkExterno = window.origin + link.href
+
+      copyToClipboard(linkExterno)
+        .then(() => {
+          notifySuccess('Copiado com sucesso!')
+        })
+        .catch((error) => {
+          notifyError(error.message)
+        })
     }
 
     onMounted(() => {
@@ -146,7 +170,8 @@ export default defineComponent({
       carregando,
       handleEdit,
       handleRemove,
-      handleMinhaLoja
+      handleMinhaLoja,
+      handleCopiarLinkPublico
     }
   }
 })

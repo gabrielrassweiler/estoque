@@ -101,7 +101,7 @@ export default function useApi () {
   }
 
   const getConfig = async () => {
-    const id = user?.value?.id || route.params.id
+    const id = route.params.id || user?.value?.id
     if (id) {
       $q.loading.show()
       const { data, error } = await supabase
