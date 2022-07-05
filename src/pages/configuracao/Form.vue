@@ -27,7 +27,7 @@
         </div>
 
         <q-btn
-          :label="atualizar ? 'Atualizar' : 'Salvar'"
+          label="Salvar"
           color="primary"
           class="full-width"
           rounded
@@ -49,8 +49,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { defineComponent, ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import useAuthUser from 'src/composables/UseAuthUser'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
 import useConfig from 'src/composables/UseConfig'
@@ -65,16 +66,15 @@ export default defineComponent({
       corPrimaria: '',
       corSecundaria: ''
     })
+    const { user } = useAuthUser()
     const router = useRouter()
-    const route = useRoute()
     const { setConfig } = useConfig()
-    const { post, getById, update } = useApi()
+    const { post, list, update } = useApi()
     const { notifyError, notifySuccess } = useNotify()
-    const atualizar = computed(() => route.params.id)
 
     const handleSubmit = async () => {
       try {
-        if (atualizar.value) {
+        if (form.value.id) {
           await update('config', form.value)
         } else {
           await post('config', form.value)
@@ -88,24 +88,22 @@ export default defineComponent({
       }
     }
 
-    const handleConfig = async () => {
+    const handleBuscaConfig = async () => {
       try {
-        form.value = await getById('config', atualizar.value)
+        const config = await list('config', user.value.id)
+        form.value = config[0]
       } catch (e) {
         notifyError(e.message)
       }
     }
 
     onMounted(() => {
-      if (atualizar.value) {
-        handleConfig()
-      }
+      handleBuscaConfig()
     })
 
     return {
       form,
-      handleSubmit,
-      atualizar
+      handleSubmit
     }
   }
 })
