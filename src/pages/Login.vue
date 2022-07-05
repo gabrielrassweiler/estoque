@@ -72,9 +72,12 @@ export default defineComponent({
 
     const handleLogin = async () => {
       try {
+        $q.loading.show()
         await login(form.value)
         await router.push({ name: 'me' })
+        $q.loading.hide()
       } catch (error) {
+        $q.loading.hide()
         $q.dialog({
           title: 'Erro',
           message: error.message.toLowerCase() === 'invalid login credentials' ? 'Senha incorreta!' : error.message,

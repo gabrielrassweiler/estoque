@@ -63,12 +63,15 @@ export default defineComponent({
 
     const handleRegistrar = async () => {
       try {
+        $q.loading.show()
         await registrar(form.value)
         await router.push({
           name: 'ConfirmacaoEmail',
           query: { email: form.value.email }
         })
+        $q.loading.hide()
       } catch (error) {
+        $q.loading.hide()
         $q.dialog({
           title: 'Erro',
           message: error.message,
