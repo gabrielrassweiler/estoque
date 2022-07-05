@@ -25,6 +25,8 @@
         :loading="carregando"
         loading-label="Carregando..."
         :filter="filter"
+        v-model:pagination="initialPagination"
+        hide-pagination
       >
         <template v-slot:top>
           <span class="text-h6">Produtos</span>
@@ -63,6 +65,15 @@
       </q-table>
     </div>
 
+    <div class="row justify-center">
+      <q-pagination
+        v-model="initialPagination.page"
+        :max="pagesNumber"
+        input
+        @update:model-value="handleScrollToTop"
+      />
+    </div>
+
     <dialog-produto-detalhes
       :mostrarDetalhes="mostrarModal"
       :produto="detalhesProduto"
@@ -72,8 +83,8 @@
 </template>
 
 <script>
-import { columnsProduto } from 'pages/produto/table'
-import { defineComponent, onMounted, ref } from 'vue'
+import { columnsProduto, initialPagination } from 'pages/produto/table'
+import { defineComponent, onMounted, ref, computed } from 'vue'
 import useApi from 'src/composables/UseApi'
 import useNotify from 'src/composables/UseNotify'
 import { useRoute } from 'vue-router'
@@ -123,6 +134,10 @@ export default defineComponent({
       }
     }
 
+    const handleScrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
     onMounted(() => {
       if (route.params.id) {
         handleListProducts(route.params.id)
@@ -143,7 +158,10 @@ export default defineComponent({
       handleListProducts,
       opcoesCategoria,
       categoriaId,
-      route
+      route,
+      initialPagination,
+      pagesNumber: computed(() => Math.ceil(produtos.value.length / initialPagination.value.rowsPerPage)),
+      handleScrollToTop
     }
   }
 })
