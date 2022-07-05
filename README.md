@@ -1,4 +1,5 @@
 # Estoque Quasar app (estoque)
+Deploy da aplicação: https://estoque-gabriel.netlify.app/
 
 Projeto realizado com Quasar framework(Vue.js) e supabase para parte de autenticação, storage, etc.
 
