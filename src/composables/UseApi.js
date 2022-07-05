@@ -1,10 +1,23 @@
 import useSupabase from 'src/boot/supabase'
 import useAuthUser from './UseAuthUser'
 import { v4 as uuidv4 } from 'uuid'
+import { useRoute } from 'vue-router'
+import { ref } from 'vue'
+import UseConfig from 'src/composables/UseConfig'
+import { useQuasar } from 'quasar'
+
+const config = ref({
+  corPrimaria: '',
+  corSecundaria: '',
+  telefone: ''
+})
 
 export default function useApi () {
   const { supabase } = useSupabase()
   const { user } = useAuthUser()
+  const route = useRoute()
+  const { setConfig } = UseConfig()
+  const $q = useQuasar()
 
   const listPublic = async (table) => {
     const { data, error } = await supabase
@@ -87,6 +100,26 @@ export default function useApi () {
     return publicURL
   }
 
+  const getConfig = async () => {
+    const id = user?.value?.id || route.params.id
+    if (id) {
+      $q.loading.show()
+      const { data, error } = await supabase
+        .from('config')
+        .select('*')
+        .eq('user_id', id)
+      if (error) throw error
+
+      if (data.length) {
+        config.value = data[0]
+        setConfig(config.value.corPrimaria, config.value.corSecundaria)
+      }
+
+      $q.loading.hide()
+      return config
+    }
+  }
+
   return {
     list,
     getById,
@@ -95,6 +128,7 @@ export default function useApi () {
     remove,
     uploadImg,
     getUrlPublic,
-    listPublic
+    listPublic,
+    getConfig
   }
 }

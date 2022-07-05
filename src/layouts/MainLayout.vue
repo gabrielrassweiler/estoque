@@ -58,11 +58,12 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
-import { useRouter } from 'vue-router'
 import useAuthUser from 'src/composables/UseAuthUser'
+import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
+import useApi from 'src/composables/UseApi'
 
 const linksList = [
   {
@@ -106,6 +107,11 @@ export default defineComponent({
     const leftDrawerOpen = ref(false)
     const { logout } = useAuthUser()
     const router = useRouter()
+    const { getConfig } = useApi()
+
+    onMounted(() => {
+      getConfig()
+    })
 
     const handleLogout = async () => {
       $q.dialog({

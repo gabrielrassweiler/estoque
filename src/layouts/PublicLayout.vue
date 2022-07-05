@@ -25,17 +25,23 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import { useQuasar } from 'quasar'
+import useApi from 'src/composables/UseApi'
 
 export default defineComponent({
   name: 'PublicLayout',
   setup () {
+    const { getConfig } = useApi()
     const $q = useQuasar()
     const dark = ref(localStorage.getItem('darkMode') === 'true' ?? 'false')
     if (localStorage.getItem('darkMode') === 'true') {
       $q.dark.set(true)
     }
+
+    onMounted(() => {
+      getConfig()
+    })
 
     const handleMode = () => {
       if (!dark.value) {
