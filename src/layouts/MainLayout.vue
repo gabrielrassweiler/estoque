@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>Estoque</q-toolbar-title>
+        <q-toolbar-title>{{ config.nome ? config.nome : 'Estoque' }}</q-toolbar-title>
 
         <div>
           <q-toggle
@@ -107,7 +107,7 @@ export default defineComponent({
     const leftDrawerOpen = ref(false)
     const { logout } = useAuthUser()
     const router = useRouter()
-    const { getConfig } = useApi()
+    const { getConfig, config } = useApi()
 
     onMounted(() => {
       getConfig()
@@ -145,7 +145,8 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       handleLogout,
-      handleMode
+      handleMode,
+      config
     }
   }
 })

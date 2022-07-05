@@ -129,6 +129,7 @@ export default function useApi () {
     uploadImg,
     getUrlPublic,
     listPublic,
-    getConfig
+    getConfig,
+    config
   }
 }

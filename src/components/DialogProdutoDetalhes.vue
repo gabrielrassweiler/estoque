@@ -33,6 +33,7 @@
           outline
         />
         <q-btn
+          v-if="config.telefone"
           label="Fazer pedido"
           color="green"
           icon="whatsapp"
@@ -47,6 +48,7 @@
 import { defineComponent } from 'vue'
 import { formatMoney } from 'src/utils/format'
 import { openURL } from 'quasar'
+import UseApi from 'src/composables/UseApi'
 
 export default defineComponent({
   name: 'DialogProdutoDetalhes',
@@ -60,7 +62,7 @@ export default defineComponent({
     }
   },
   setup (props, { emit }) {
-    const phone = '47988261867'
+    const { config } = UseApi()
     const msg = 'Olá, fiquei interessado no produto: '
 
     const handleFechar = () => {
@@ -68,13 +70,14 @@ export default defineComponent({
     }
 
     const handleEnviarWhatsapp = () => {
-      openURL(encodeURI(`https://api.whatsapp.com/send?phone=55${phone}&text=${msg} - ${props.produto.name} - ${formatMoney(props.produto.preco)}`))
+      openURL(encodeURI(`https://api.whatsapp.com/send?phone=55${config.telefone}&text=${msg} - ${props.produto.name} - ${formatMoney(props.produto.preco)}`))
     }
 
     return {
       formatMoney,
       handleFechar,
-      handleEnviarWhatsapp
+      handleEnviarWhatsapp,
+      config
     }
   }
 })

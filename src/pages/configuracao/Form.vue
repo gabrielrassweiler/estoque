@@ -9,15 +9,14 @@
         <q-input
           label="Nome da loja"
           v-model="form.nome"
-          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
         />
 
         <q-input
           label="Telefone"
           v-model="form.telefone"
-          :rules="[val => (val && val.length > 0) || 'Campo obrigatório!']"
           mask="(##) #####-####"
           unmasked-value
+          class="q-mb-lg"
         />
 
         <div class="row justify-center q-col-gutter-md q-pa-sm">
