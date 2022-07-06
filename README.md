@@ -1,5 +1,5 @@
 # Estoque Quasar app (estoque)
-Deploy da aplicação: https://sualoja.netlify.app/
+Deploy da aplicação: https://meuestoque.netlify.app/
 
 Projeto realizado com Quasar framework(Vue.js) e supabase para parte de autenticação, storage, etc.
 
