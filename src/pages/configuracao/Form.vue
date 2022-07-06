@@ -17,7 +17,9 @@
           mask="(##) #####-####"
           unmasked-value
           class="q-mb-lg"
-        />
+        >
+          <q-tooltip>Configuração de telefone para poder realizar pedidos pelo whatsapp</q-tooltip>
+        </q-input>
 
         <div class="row justify-center q-col-gutter-md q-pa-sm">
             <q-color v-model="form.corPrimaria" class="col-md-5 col-sm-12 col-xs-12" />
