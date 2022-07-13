@@ -92,6 +92,10 @@ export default defineComponent({
     const handleBuscaConfig = async () => {
       try {
         const config = await list('config', user.value.id)
+        if (!config.length) {
+          return
+        }
+
         form.value = config[0]
       } catch (e) {
         notifyError(e.message)

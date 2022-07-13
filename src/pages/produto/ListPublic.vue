@@ -77,7 +77,7 @@
     <dialog-produto-detalhes
       :mostrarDetalhes="mostrarModal"
       :produto="detalhesProduto"
-      @fecharDialog=false
+      @fechar-dialog="mostrarModal = false"
     />
   </q-page>
 </template>
