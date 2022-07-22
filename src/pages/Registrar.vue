@@ -4,9 +4,9 @@
       <q-card class="col-md-4 col-sm-6 col-xs-10" bordered :style="$q.dark.isActive ? 'box-shadow: 0 1px 15px #383838;' : 'box-shadow: 0 1px 15px #cfcfcf;'">
         <q-card-section class="q-mt-lg q-mb-lg">
           <q-form @submit.prevent="handleRegistrar">
-            <p class="col-12 text-h5 text-center">Registrar-se</p>
+            <p class="col-12 text-h6 text-center text-uppercase" :style="$q.dark.isActive ? 'color: #e6e6e6;' : 'color: #383838;'">Registrar-se</p>
 
-            <div class="q-gutter-y-lg q-mt-lg q-mb-lg" style="padding: 0 20px">
+            <div class="q-gutter-y-lg q-mt-lg q-mb-lg" style="padding: 0 30px">
               <q-input
                 label="Nome"
                 v-model="form.name"

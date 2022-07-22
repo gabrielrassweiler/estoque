@@ -48,7 +48,7 @@
               <q-btn
                 label="Esqueceu a senha ?"
                 color="primary"
-                class="full-width"
+                class="full-width q-mt-sm"
                 flat
                 rounded
                 to="/esqueceu-senha"
