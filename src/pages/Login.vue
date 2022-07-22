@@ -55,7 +55,7 @@
                   to="/esqueceu-senha"
                 />
               </div>
-              </div>
+            </div>
           </q-form>
         </q-card-section>
       </q-card>
