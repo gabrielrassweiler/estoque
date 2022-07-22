@@ -4,16 +4,16 @@
       <img class="imagem-fundo" src="../assets/wave.svg" alt="imagem" />
 
       <div class="col-md-4 col-sm-7 col-xs-10" style="position: relative; top: 10vh; text-align: center">
-        <p class="text-h6" style="color: #e6e6e6;">Gerencie seu estoque e loja</p>
+        <p class="text-h6" :style="$q.dark.isActive ? 'color: #e6e6e6;' : 'color: #383838;'">Gerencie seu estoque e loja</p>
         <p class="text-h5 text-weight-bold" style="color: #2c9c6a">Faça login ou cadastre-se agora mesmo!</p>
 
         <img class="imagem-estoque" src="../assets/animacao.svg" alt="imagem-estoque" />
       </div>
 
-      <q-card class="col-md-4 col-sm-7 col-xs-10 card-main" bordered>
+      <q-card class="col-md-4 col-sm-7 col-xs-10 card-main" bordered :style="$q.dark.isActive ? 'box-shadow: 0 1px 15px #383838;' : 'box-shadow: 0 1px 15px #cfcfcf;'">
         <q-card-section class="q-mt-lg q-mb-lg">
           <q-form @submit.prevent="handleLogin">
-            <p class="col-12 text-h5 text-center">Login</p>
+            <p class="col-12 text-h6 text-center text-uppercase" :style="$q.dark.isActive ? 'color: #e6e6e6;' : 'color: #383838;'">Login</p>
 
             <div>
               <div class="q-gutter-y-lg q-mt-lg q-mb-lg">
@@ -127,7 +127,6 @@ export default defineComponent({
   .card-main {
     top: 11vh;
     height: 500px;
-    box-shadow: 0 1px 15px #383838;
     margin-bottom: 160px;
   }
 </style>
