@@ -37,23 +37,25 @@
                 />
               </div>
 
-              <q-btn
-                label="Registrar-se"
-                color="primary"
-                class="full-width q-gutter-y-sm q-mt-lg"
-                flat
-                rounded
-                to="/registrar"
-              />
-              <q-btn
-                label="Esqueceu a senha ?"
-                color="primary"
-                class="full-width q-mt-sm"
-                flat
-                rounded
-                to="/esqueceu-senha"
-              />
-            </div>
+              <div style="padding: 0 30px">
+                <q-btn
+                  label="Registrar-se"
+                  color="primary"
+                  class="full-width q-gutter-y-sm q-mt-lg"
+                  flat
+                  rounded
+                  to="/registrar"
+                />
+                <q-btn
+                  label="Esqueceu a senha ?"
+                  color="primary"
+                  class="full-width q-mt-sm"
+                  flat
+                  rounded
+                  to="/esqueceu-senha"
+                />
+              </div>
+              </div>
           </q-form>
         </q-card-section>
       </q-card>
