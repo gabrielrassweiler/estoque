@@ -1,44 +1,50 @@
 <template>
-  <q-page padding>
-    <q-form class="row justify-center" style="top: 20vh;" @submit.prevent="handleRegistrar">
-      <p class="col-12 text-h5 text-center">Registrar-se</p>
+  <q-page>
+    <div class="row justify-center" style="position: relative; top: 11vh;">
+      <q-card class="col-md-4 col-sm-6 col-xs-10" bordered :style="$q.dark.isActive ? 'box-shadow: 0 1px 15px #383838;' : 'box-shadow: 0 1px 15px #cfcfcf;'">
+        <q-card-section class="q-mt-lg q-mb-lg">
+          <q-form @submit.prevent="handleRegistrar">
+            <p class="col-12 text-h5 text-center">Registrar-se</p>
 
-      <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-lg">
-        <q-input
-          label="Nome"
-          v-model="form.name"
-        />
-        <q-input
-          label="Email"
-          v-model="form.email"
-          type="email"
-        />
-        <q-input
-          label="Senha"
-          v-model="form.password"
-          type="password"
-        />
+            <div class="q-gutter-y-lg q-mt-lg q-mb-lg" style="padding: 0 20px">
+              <q-input
+                label="Nome"
+                v-model="form.name"
+              />
+              <q-input
+                label="Email"
+                v-model="form.email"
+                type="email"
+              />
+              <q-input
+                label="Senha"
+                v-model="form.password"
+                type="password"
+              />
 
-        <div class="full-width q-pt-md">
-          <q-btn
-            label="Registrar"
-            color="primary"
-            class="full-width"
-            outline
-            rounded
-            type="submit"
-          />
-        </div>
-        <q-btn
-          label="Voltar"
-          color="primary"
-          class="full-width"
-          flat
-          rounded
-          to="/login"
-        />
-      </div>
-    </q-form>
+              <div class="full-width q-pt-md">
+                <q-btn
+                  label="Registrar"
+                  color="primary"
+                  class="full-width"
+                  outline
+                  rounded
+                  type="submit"
+                />
+              </div>
+              <q-btn
+                label="Voltar"
+                color="primary"
+                class="full-width"
+                flat
+                rounded
+                to="/login"
+              />
+            </div>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </div>
   </q-page>
 </template>
 

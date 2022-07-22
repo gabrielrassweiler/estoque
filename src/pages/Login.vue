@@ -3,7 +3,7 @@
     <div class="row justify-center q-gutter-x-lg">
       <img class="imagem-fundo" src="../assets/wave.svg" alt="imagem" />
 
-      <div class="col-md-4 col-sm-7 col-xs-10" style="position: relative; top: 10vh; text-align: center">
+      <div class="col-md-4 col-sm-7 col-xs-10 d-text">
         <p class="text-h6" :style="$q.dark.isActive ? 'color: #e6e6e6;' : 'color: #383838;'">Gerencie seu estoque e loja</p>
         <p class="text-h5 text-weight-bold" style="color: #2c9c6a">Faça login ou cadastre-se agora mesmo!</p>
 
@@ -16,7 +16,7 @@
             <p class="col-12 text-h6 text-center text-uppercase" :style="$q.dark.isActive ? 'color: #e6e6e6;' : 'color: #383838;'">Login</p>
 
             <div>
-              <div class="q-gutter-y-lg q-mt-lg q-mb-lg">
+              <div class="q-gutter-y-lg q-mt-lg q-mb-lg" style="padding: 0 30px">
                 <q-input
                   label="Email"
                   v-model="form.email"
@@ -122,6 +122,12 @@ export default defineComponent({
   .imagem-estoque {
     position: relative;
     width: 75%;
+  }
+
+  .d-text {
+    position: relative;
+    top: 10vh;
+    text-align: center;
   }
 
   .card-main {
